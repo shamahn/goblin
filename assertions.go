@@ -44,6 +44,12 @@ func (a *Assertion) Equal(dst interface{}) {
 	}
 }
 
+func (a *Assertion) NotEqual(dst interface{}) {
+	if objectsAreEqual(a.src, dst) {
+		a.fail(fmt.Sprintf("%#v %s %#v", a.src, "does equal", dst))
+	}
+}
+
 func (a *Assertion) IsTrue(messages ...string) {
 	if !objectsAreEqual(a.src, true) {
 		message := fmt.Sprintf("%v %s%s", a.src, "expected false to be truthy", formatMessages(messages...))
@@ -57,3 +63,4 @@ func (a *Assertion) IsFalse(messages ...string) {
 		a.fail(message)
 	}
 }
+
